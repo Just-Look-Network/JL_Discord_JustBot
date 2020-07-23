@@ -1,0 +1,11 @@
+{
+    "prefix": "!",
+    "plugins": {
+        "announcer": true,
+        "dynamicVoiceChannel": false,
+        "gameServerInfo": false,
+        "logger": false,
+        "permission": false,
+        "stats": false
+    }
+}

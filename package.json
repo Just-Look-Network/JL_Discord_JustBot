@@ -1,0 +1,19 @@
+{
+    "name": "jl_discord_bot",
+    "version": "0.0.1",
+    "description": "Official Just-Look Network Discord Bot",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "keywords": [
+        "Discord",
+        "Bot",
+        "Network",
+        "Just-Look"
+    ],
+    "author": "PoLLi",
+    "dependencies": {
+        "discord.js": "^12.2.0",
+        "dotenv": "^8.2.0"
+    }
+}
