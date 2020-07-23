@@ -3,17 +3,18 @@
     "version": "0.0.1",
     "description": "Official Just-Look Network Discord Bot",
     "scripts": {
-        "start": "node app.js"
+        "start": "ts-node app.ts"
     },
-    "keywords": [
-        "Discord",
-        "Bot",
-        "Network",
-        "Just-Look"
-    ],
     "author": "PoLLi",
     "dependencies": {
+        "@typeit/discord": "^4.0.8",
         "discord.js": "^12.2.0",
-        "dotenv": "^8.2.0"
+        "dotenv": "^8.2.0",
+        "ts-node": "^8.10.2"
+    },
+    "devDependencies": {
+        "@types/node": "^14.0.24",
+        "tslib": "^2.0.0",
+        "typescript": "^3.9.7"
     }
 }
