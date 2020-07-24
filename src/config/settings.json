@@ -1,5 +1,6 @@
 {
     "prefix": "!",
+    "owners": [],
     "plugins": {
         "announcer": true,
         "dynamicVoiceChannel": false,
