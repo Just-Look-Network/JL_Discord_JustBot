@@ -8,11 +8,9 @@ const client: BotClient = new BotClient({ token, owners });
 
 client
     .on('disconnect', () => Logger.warn('Connection lost...'))
-    .on('shardReconnecting', () => Logger.info('Attempting to reconnect...'))
     .on('error', (err) => Logger.error(err))
-    .on('warn', (info) => Logger.warn(info));
-
-client.start();
+    .on('warn', (info) => Logger.warn(info))
+    .start();
 
 process.on('unhandledRejection', (err) => {
     Logger.error('An unhandled promise rejection occured');
