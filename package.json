@@ -1,7 +1,7 @@
 {
     "name": "jl_discord_bot",
     "version": "0.0.1",
-    "description": "Official Just-Look Network Discord Bot",
+    "description": "Official Just-Look Network Discord Bot. Also called 'JustBot'",
     "scripts": {
         "start": "ts-node src/App.ts"
     },
