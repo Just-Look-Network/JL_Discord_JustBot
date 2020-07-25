@@ -1,6 +1,5 @@
-import { Command, AkairoClient } from 'discord-akairo';
+import { Command } from 'discord-akairo';
 import { Message, MessageEmbed, Guild } from 'discord.js';
-import { invalid } from 'moment';
 
 export default class ServerInfo extends Command {
     public constructor() {
