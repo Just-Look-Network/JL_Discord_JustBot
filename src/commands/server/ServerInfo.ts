@@ -4,11 +4,11 @@ import { invalid } from 'moment';
 
 export default class ServerInfo extends Command {
     public constructor() {
-        super('info', {
-            aliases: ['info', 'serverinfo', 'information'],
+        super('serverinfo', {
+            aliases: ['serverinfo', 'sv'],
             category: 'Server Commands',
             description: {
-                content: 'Get Information about your Discord Server',
+                content: 'Get Information about thes Discord Server',
                 usage: 'info',
                 examples: ['info']
             },
@@ -28,20 +28,22 @@ export default class ServerInfo extends Command {
         return features.join('\n');
     }
 
-    private getPrefixes(prefixes: any): string {
+    private getPrefixes(): string {
+        const prefixes = this.client.commandHandler.prefix;
+
         if (Array.isArray(prefixes)) {
             return prefixes.join('\n');
         } else {
-            return prefixes;
+            return prefixes as string;
         }
     }
 
-    private getTextChannel(channels: any): number {
-        return channels.filter((x) => x.type === 'text').size;
+    private getTextChannel(): number {
+        return this.client.channels.cache.filter((x) => x.type === 'text').size;
     }
 
-    private getVoiceChannel(channels): number {
-        return channels.filter((x) => x.type === 'voice').size;
+    private getVoiceChannel(): number {
+        return this.client.channels.cache.filter((x) => x.type === 'voice').size;
     }
 
     private getInfo(guild: Guild): string {
@@ -58,8 +60,8 @@ export default class ServerInfo extends Command {
         return `Verification Level: ${vl}\nServer Region: ${region}\nImage Scanning: ${scan}`;
     }
 
-    private getBotStatus(client: AkairoClient): string {
-        const ping = client.ws.ping;
+    private getBotStatus(): string {
+        const ping = this.client.ws.ping;
         const version = process.env.npm_package_version;
         const premium = '❌'; // TODO: setup premium service Kappa. see the money rain incomming
 
@@ -81,14 +83,13 @@ export default class ServerInfo extends Command {
 
     public exec(message: Message): Promise<Message> {
         const Guild = message.guild;
-        const Client = this.client;
 
         const info = this.getInfo(Guild);
-        const botStatus = this.getBotStatus(Client);
+        const botStatus = this.getBotStatus();
+        const prefixes = this.getPrefixes();
+        const textChannelCount = this.getTextChannel();
+        const voiceChannelCount = this.getVoiceChannel();
         const features = this.getFeatures(Guild.features);
-        const prefixes = this.getPrefixes(Client.commandHandler.prefix);
-        const textChannelCount = this.getTextChannel(Guild.channels.cache);
-        const voiceChannelCount = this.getVoiceChannel(Guild.channels.cache);
         const members = this.getMembers(Guild.members.cache);
         const roles = Guild.roles.cache.size;
 
