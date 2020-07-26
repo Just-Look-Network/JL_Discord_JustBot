@@ -1,0 +1,30 @@
+/**
+* ---------------------
+* - JustBot Dashboard
+* - Variable Overwrite
+* ---------------------
+*/
+
+// Color Settings
+$primary: #f2a365;
+$secondary: #30475e;
+$dark: #14171d;
+$light: #aaaaaa;
+
+// Global Background / Text-Color
+$body-bg: #222831;
+$body-color: #ececec;
+
+// Card Settings
+$card-bg: $dark;
+
+// Input Settings
+$input-bg: $secondary;
+$input-color: #fff;
+$input-border-color: $light;
+$input-border-color: transparent;
+$input-focus-border-color: $primary;
+$input-focus-box-shadow: none;
+$input-group-addon-bg: $primary;
+$input-group-addon-color: $dark;
+$input-group-addon-border-color: transparent;

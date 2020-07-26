@@ -20,6 +20,7 @@ npm run start
 
 ## Build with
 
+-   [Nuxt](https://nuxtjs.org/)
 -   [DiscordJS](https://discord.js.org/#/)
 -   [Discord Akiaro](https://discord-akairo.github.io/#/)
 

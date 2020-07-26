@@ -23,9 +23,9 @@ export default {
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     },
     /*
-     ** Global CSS
+     ** Global SCSS
      */
-    css: [],
+    css: ['~/assets/scss/main.scss'],
     /*
      ** Plugins to load before mounting the App
      ** https://nuxtjs.org/guide/plugins
@@ -49,6 +49,13 @@ export default {
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios'
     ],
+    /*
+     ** BootstrapVue Settings
+     */
+    bootstrapVue: {
+        bootstrapCSS: false,
+        bootstrapVueCSS: false
+    },
     /*
      ** Axios module configuration
      ** See https://axios.nuxtjs.org/options
