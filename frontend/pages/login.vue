@@ -33,15 +33,8 @@
     </b-container>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-export default Vue.extend({
-    methods: {
-        login() {
-            console.log('asdas');
-        }
-    }
-});
+<script>
+export default {};
 </script>
 
 <style lang="scss" scoped>
