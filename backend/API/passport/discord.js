@@ -1,6 +1,7 @@
+const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const DiscordStrategy = require('passport-discord');
-const { discord } = require('../config/config');
+const { discord, jwtConfig } = require('../config/config');
 
 const db = require('../models');
 const User = db.users;
@@ -31,31 +32,42 @@ passport.use(
             prompt: prompt
         },
         (accessToken, refreshToken, profile, done) => {
+            const user = new User({
+                id: profile.id,
+                username: profile.username,
+                discriminator: profile.discriminator,
+                email: profile.email
+            });
+
+            // ---------------------------------------------------------------------------
+            // Search exsiting user / save new user
             User.findOne({ id: profile.id }).then((currUser) => {
                 if (currUser) {
                     console.log(`User allready exists: ${currUser}`);
-                    done(null, currUser);
                 } else {
                     console.log('Create new User');
-
-                    const user = new User({
-                        id: profile.id,
-                        username: profile.username,
-                        discriminator: profile.discriminator,
-                        email: profile.email
-                    });
 
                     // Save Tutorial in the database
                     user.save(user)
                         .then((data) => {
                             console.log(`New User created: ${data}`);
-                            done(null, data);
                         })
                         .catch((err) => {
                             console.log(err);
                         });
                 }
             });
+
+            // ---------------------------------------------------------------------------
+            // JWT Token sign
+            let token = jwt.sign(
+                {
+                    data: user
+                },
+                jwtConfig.secret,
+                { expiresIn: 60 }
+            );
+            done(null, token);
         }
     )
 );

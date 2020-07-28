@@ -67,8 +67,9 @@ export default {
      ** See https://axios.nuxtjs.org/options
      */
     axios: {
-        baseURL: 'https://jln.just-look.net/'
+        // baseURL: 'https://jln.just-look.net/'
         // baseURL: 'http://127.0.0.1:1337'
+        baseURL: 'http://localhost:3000'
     },
     /*
      ** Build configuration

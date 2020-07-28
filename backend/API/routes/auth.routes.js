@@ -2,7 +2,7 @@ module.exports = (app) => {
     const passport = require('passport');
     const router = require('express').Router();
 
-    const discordStrat = require('../passport/');
+    const discordStrat = require('../passport/discord');
 
     // Start passport oauth
     router.get('/discord', passport.authenticate('discord'));
@@ -14,7 +14,8 @@ module.exports = (app) => {
             failureRedirect: '/'
         }),
         (req, res) => {
-            res.send(req.user);
+            res.redirect('http://localhost:3333/auth/discord/callback?jwt=' + req.user);
+            //res.json({ jwt: req.user });
             // res.send('Callback URI');
         }
     );
