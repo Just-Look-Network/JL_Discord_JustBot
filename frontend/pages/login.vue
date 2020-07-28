@@ -23,7 +23,9 @@
                             ></b-form-input>
                         </b-input-group> -->
 
-                    <b-button variant="primary" class="mt-3 p-3" block @click="login">Login with Discord</b-button>
+                    <a href="http://localhost:3000/auth/discord" class="mt-3 p-3 btn btn-block btn-primary"
+                        >Login with Discord</a
+                    >
                     <!-- <b-button type="submit" variant="secondary" class="mt-2" block>Register</b-button>
                         <b-button type="submit" variant="link" class="">forgot password?</b-button> -->
                     <!-- </b-form> -->
@@ -34,7 +36,10 @@
 </template>
 
 <script>
-export default {};
+export default {
+    layout: 'auth',
+    middleware: 'notAuthenticated'
+};
 </script>
 
 <style lang="scss" scoped>

@@ -34,7 +34,7 @@ export default {
      ** Plugins to load before mounting the App
      ** https://nuxtjs.org/guide/plugins
      */
-    plugins: [],
+    plugins: [{ src: '~/plugins/auth.js' }, { src: '~/plugins/vue-swal' }],
     /*
      ** Auto import components
      ** See https://nuxtjs.org/api/configuration-components
@@ -52,8 +52,6 @@ export default {
         'bootstrap-vue/nuxt',
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios'
-        // Doc: https://sweetalert2.github.io/
-        // 'vue-sweetalert2/nuxt'
     ],
     /*
      ** BootstrapVue Settings
@@ -67,12 +65,14 @@ export default {
      ** See https://axios.nuxtjs.org/options
      */
     axios: {
-        baseURL: 'https://jln.just-look.net/'
-        // baseURL: 'http://127.0.0.1:1337'
+        // baseURL: 'https://jln.just-look.net/'
+        baseURL: 'http://localhost:3000'
     },
     /*
      ** Build configuration
      ** See https://nuxtjs.org/api/configuration-build/
      */
-    build: {}
+    build: {
+        vendor: ['vue-swal']
+    }
 };

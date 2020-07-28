@@ -3,43 +3,23 @@
 </template>
 
 <script>
+const Cookie = process.client ? require('js-cookie') : undefined;
+
 export default {
+    layout: 'auth',
+    middleware: 'notAuthenticated',
+
     mounted() {
-        console.log(this.$route);
-        if (this.$route.query['error[error]']) {
+        if (!this.$route.query['jwt']) {
             this.$router.push('/login');
+            return;
         }
 
-        const d = this.$route.query;
-        if (!d.access_token && !d.refresh_token) {
-            this.$router.push('/login');
-        }
+        const jwt = this.$route.query.jwt;
 
-        const vm = this;
-
-        this.$axios
-            .get('/connect/discord/callback', {
-                params: d
-            })
-            .then((res) => {
-                console.log('well done!');
-                if (res == null) return;
-
-                console.log('User Profile', res.user);
-                console.log('User token', res.jwt);
-
-                this.$router.push('/');
-            })
-            .catch((err) => {
-                if (err.response.status === 400) {
-                    this.errorAvailable = true;
-                    this.errorText = err.response.data.message;
-                    setTimeout(() => {
-                        vm.errorAvailable = false;
-                        vm.errorText = '';
-                    }, 30000);
-                }
-            });
+        this.$store.commit('auth/setAuth', jwt);
+        Cookie.set('auth', jwt, { expires: 14 });
+        this.$router.push('/');
     }
 };
 </script>
