@@ -1,12 +1,13 @@
 require('dotenv').config();
-// const dbConfig = require('../config/db.config');
+const { mongoDB } = require('../config/config');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const db = {};
 db.mongoose = mongoose;
-db.url = process.env.MONGO_DB_URL;
+db.url = mongoDB.url;
+console.log(db.url);
 // db.url = dbConfig.url;
 db.tutorials = require('./tutorial.model.js')(mongoose);
 

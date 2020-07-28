@@ -1,5 +1,6 @@
 # Env
 .env
+/config/config.js
 
 # yarn lock file
 yarn.lock
