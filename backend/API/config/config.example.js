@@ -1,5 +1,12 @@
 module.exports = {
     mongoDB: {
-        url: 'YOUR MONGO DB URL HERE'
+        url: 'URL MONGODB URI HERE'
+    },
+    discord: {
+        clientID: 'CLIENT ID',
+        clientSecret: 'CLIENT SECRET'
+    },
+    jwtConfig: {
+        secret: 'JWT SECRET'
     }
 };
