@@ -2,12 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
-const logger = require('morgan');
+const logger = require('./utils/logger');
 
 const app = express();
 
 app.use(cors());
-app.use(logger('dev'));
+app.use(logger);
 
 // ---------------------------------------------------------------------------
 // configure body parser middleware
