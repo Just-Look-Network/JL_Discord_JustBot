@@ -14,7 +14,8 @@ module.exports = (app) => {
             failureRedirect: '/'
         }),
         (req, res) => {
-            res.redirect('/dashboard'); // Successful auth
+            res.send(req.user);
+            // res.send('Callback URI');
         }
     );
 

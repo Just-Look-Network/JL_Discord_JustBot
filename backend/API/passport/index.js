@@ -6,7 +6,20 @@ const db = require('../models');
 const User = db.users;
 
 const scopes = ['identify', 'email', 'guilds'];
+const prompt = 'consent';
 
+// ---------------------------------------------------------------------------
+// serialize / deserialize
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+passport.deserializeUser((obj, done) => {
+    done(null, obj);
+});
+
+// ---------------------------------------------------------------------------
+// Discord Strategey
 passport.use(
     new DiscordStrategy(
         {
@@ -14,19 +27,15 @@ passport.use(
             clientID: discord.clientID,
             clientSecret: discord.clientSecret,
             callbackURL: '/auth/discord/callback',
-            scope: scopes
+            scope: scopes,
+            prompt: prompt
         },
-        (accessToken, refreshToken, profile, callback) => {
-            // passport callback function
-            // console.log(profile);
-
+        (accessToken, refreshToken, profile, done) => {
             User.findOne({ id: profile.id }).then((currUser) => {
                 if (currUser) {
-                    // User exists
                     console.log(`User allready exists: ${currUser}`);
-                    return;
+                    done(null, currUser);
                 } else {
-                    // new User
                     console.log('Create new User');
 
                     const user = new User({
@@ -40,6 +49,7 @@ passport.use(
                     user.save(user)
                         .then((data) => {
                             console.log(`New User created: ${data}`);
+                            done(null, data);
                         })
                         .catch((err) => {
                             console.log(err);
