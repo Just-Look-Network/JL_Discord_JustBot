@@ -36,7 +36,10 @@
 </template>
 
 <script>
-export default {};
+export default {
+    layout: 'auth',
+    middleware: 'notAuthenticated'
+};
 </script>
 
 <style lang="scss" scoped>
