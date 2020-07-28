@@ -18,23 +18,34 @@ passport.use(
         },
         (accessToken, refreshToken, profile, callback) => {
             // passport callback function
-            console.log(profile);
+            // console.log(profile);
 
-            const user = new User({
-                id: profile.id,
-                username: profile.username,
-                discriminator: profile.discriminator,
-                email: profile.email
+            User.findOne({ id: profile.id }).then((currUser) => {
+                if (currUser) {
+                    // User exists
+                    console.log(`User allready exists: ${currUser}`);
+                    return;
+                } else {
+                    // new User
+                    console.log('Create new User');
+
+                    const user = new User({
+                        id: profile.id,
+                        username: profile.username,
+                        discriminator: profile.discriminator,
+                        email: profile.email
+                    });
+
+                    // Save Tutorial in the database
+                    user.save(user)
+                        .then((data) => {
+                            console.log(`New User created: ${data}`);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
             });
-
-            // Save Tutorial in the database
-            user.save(user)
-                .then((data) => {
-                    console.log(data);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
         }
     )
 );
