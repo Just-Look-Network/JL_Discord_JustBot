@@ -52,8 +52,6 @@ export default {
         'bootstrap-vue/nuxt',
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios'
-        // Doc: https://sweetalert2.github.io/
-        // 'vue-sweetalert2/nuxt'
     ],
     /*
      ** BootstrapVue Settings
@@ -68,7 +66,6 @@ export default {
      */
     axios: {
         // baseURL: 'https://jln.just-look.net/'
-        // baseURL: 'http://127.0.0.1:1337'
         baseURL: 'http://localhost:3000'
     },
     /*
