@@ -11,25 +11,13 @@ const User = db.users;
 // ---------------------------------------------------------------------------
 // Jwt options
 const opts = {};
-
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-// opts.jwtFormRequest = (req) => {
-//     let token = null;
-//     if (req && req.cookies) {
-//         token = req.cookies['jwt'];
-//     }
-//     return token;
-// };
-
 opts.secretOrKey = jwtConfig.secret;
 
 // ---------------------------------------------------------------------------
 // Jwt Strategey
 passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {
-        console.log('JWT BASED VALIDATION GETTING CALLED!');
-        console.log('JWT', jwt_payload);
-
         CheckUser(jwt_payload.data)
             .then(() => {
                 return done(null, jwt_payload.data);
@@ -43,9 +31,7 @@ passport.use(
 
 function CheckUser(input) {
     return new Promise((resolve, reject) => {
-        console.log(input.id);
-
-        User.findOne({ email: input.email })
+        User.findOne({ _id: input })
             .then((currUser) => {
                 if (currUser) {
                     resolve();

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const DiscordStrategy = require('passport-discord');
+const DiscordStrategy = require('passport-discord').Strategy;
 const { discord, jwtConfig } = require('../config/config');
 
 const db = require('../models');
@@ -44,30 +44,40 @@ passport.use(
             User.findOne({ id: profile.id }).then((currUser) => {
                 if (currUser) {
                     console.log(`User allready exists: ${currUser}`);
+
+                    // ---------------------------------------------------------------------------
+                    // JWT Token sign for existing user
+                    let token = jwt.sign(
+                        {
+                            data: currUser._id
+                        },
+                        jwtConfig.secret,
+                        { expiresIn: 1000 * 60 * 60 * 24 * 14 }
+                    );
+                    done(null, token);
+                    // ---------------------------------------------------------------------------
                 } else {
                     console.log('Create new User');
-
-                    // Save Tutorial in the database
                     user.save(user)
-                        .then((data) => {
-                            console.log(`New User created: ${data}`);
+                        .then((newUser) => {
+                            console.log(`New User created: ${newUser}`);
+                            // ---------------------------------------------------------------------------
+                            // JWT Token sign
+                            let token = jwt.sign(
+                                {
+                                    data: newUser._id
+                                },
+                                jwtConfig.secret,
+                                { expiresIn: 1000 * 60 * 60 * 24 * 14 }
+                            );
+                            done(null, token);
+                            // ---------------------------------------------------------------------------
                         })
                         .catch((err) => {
                             console.log(err);
                         });
                 }
             });
-
-            // ---------------------------------------------------------------------------
-            // JWT Token sign
-            let token = jwt.sign(
-                {
-                    data: user
-                },
-                jwtConfig.secret,
-                { expiresIn: 1000 * 60 * 60 * 24 * 14 }
-            );
-            done(null, token);
         }
     )
 );

@@ -4,10 +4,12 @@ module.exports = (app) => {
 
     const discordStrat = require('../passport/discord');
 
-    // Start passport oauth
+    // ---------------------------------------------------------------------------
+    // Discord Auth
     router.get('/discord', passport.authenticate('discord'));
 
-    // oauth callback url
+    // ---------------------------------------------------------------------------
+    // Discord Callback URL
     router.get(
         '/discord/callback',
         passport.authenticate('discord', {
@@ -15,8 +17,6 @@ module.exports = (app) => {
         }),
         (req, res) => {
             res.redirect('http://localhost:3333/auth/discord/callback?jwt=' + req.user);
-            // res.json({ jwt: req.user });
-            // res.send('Callback URI');
         }
     );
 

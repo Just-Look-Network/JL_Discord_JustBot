@@ -6,29 +6,33 @@ module.exports = (app) => {
 
     var router = require('express').Router();
 
-    // Create a new Tutorial
-    // router.post('/', tutorials.create);
-
+    // ---------------------------------------------------------------------------
     // Create a new Tutorial TEST
     router.post('/', passport.authenticate('jwt', { session: false }), tutorials.create);
 
+    // ---------------------------------------------------------------------------
     // Retrieve all Tutorials
-    router.get('/', tutorials.findAll);
+    router.get('/', passport.authenticate('jwt', { session: false }), tutorials.findAll);
 
+    // ---------------------------------------------------------------------------
     // Retrieve all published Tutorials
-    router.get('/published', tutorials.findAllPublished);
+    router.get('/published', passport.authenticate('jwt', { session: false }), tutorials.findAllPublished);
 
+    // ---------------------------------------------------------------------------
     // Retrieve a single Tutorial with id
-    router.get('/:id', tutorials.findOne);
+    router.get('/:id', passport.authenticate('jwt', { session: false }), tutorials.findOne);
 
+    // ---------------------------------------------------------------------------
     // Update a Tutorial with id
-    router.put('/:id', tutorials.update);
+    router.put('/:id', passport.authenticate('jwt', { session: false }), tutorials.update);
 
+    // ---------------------------------------------------------------------------
     // Delete a Tutorial with id
-    router.delete('/:id', tutorials.delete);
+    router.delete('/:id', passport.authenticate('jwt', { session: false }), tutorials.delete);
 
+    // ---------------------------------------------------------------------------
     // Create a new Tutorial
-    router.delete('/', tutorials.deleteAll);
+    router.delete('/', passport.authenticate('jwt', { session: false }), tutorials.deleteAll);
 
     app.use('/api/tutorials', router);
 };
