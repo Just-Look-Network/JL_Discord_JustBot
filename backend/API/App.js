@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
     res.json({ message: 'Hello World.' });
 });
 
+require('./routes/auth.routes')(app);
 require('./routes/tutorial.routes')(app);
 
 const PORT = process.env.PORT || 3000;
